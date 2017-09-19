@@ -3,13 +3,12 @@ require_once '../src/app/db/mysql.php';
 require_once '../src/models/user.php';
 use Models\User;
 
-$id = 1;
-$usuario = User::FindById($id);
-// var_dump($usuario);
+$usuarios = User::all();
+// var_dump($usuarios);
 
-if (!$usuario) {
+if (!$usuarios) {
     // imprimir que no lo encontro
-    echo 'Usuario con id='.$id.' no encontrado!';
+    echo 'La tabla users no tiene registros';
 } else {
     // imprimir informacion del usuario
     // table>(thead>tr>th*5)+(tbody>tr>td*5)
@@ -25,13 +24,16 @@ if (!$usuario) {
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td><?php echo $usuario->id; ?></td>
-                <td><?php echo $usuario->name; ?></td>
-                <td><?php echo $usuario->firstname; ?></td>
-                <td><?php echo $usuario->lastname; ?></td>
-                <td><?php echo $usuario->email; ?></td>
-            </tr>
+            <?php
+            foreach ($usuarios as $usuario) {
+                echo "<tr>".
+                "<td>$usuario->id</td>
+                <td>$usuario->name</td>
+                <td>$usuario->firstname</td>
+                <td>$usuario->lastname</td>
+                <td>$usuario->email</td></tr>";
+            }
+            ?>
         </tbody>
     </table>
 <?php
