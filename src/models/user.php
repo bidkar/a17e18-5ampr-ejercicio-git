@@ -66,23 +66,53 @@ class User {
         }
     }
 
-    public static function NewOne($name,$firstname,$lastname,$email,$passwd) {
+    // CRUD - Create Read Update Delete
+    public static function Create($name,$firstname,$lastname,$email,$passwd) {
+        if (!User::ValidateExistingUser($name,$email)) {
+            $cnn = new MySQL();
+            $sql = "INSERT INTO users (name,firstname,lastname,email,password) ";
+            $sql.= sprintf("values ('%s','%s','%s','%s','%s')",$name,$firstname,$lastname,$email,$passwd);
+            $rst = $cnn->query($sql);
+            
+            if (!$rst) {
+                die('Error en la consulta');
+            } else {
+                $user = new User();
+                $user->id = $cnn->insert_id;
+                $user->name = $name;
+                $user->firstname = $firstname;
+                $user->lastname = $lastname;
+                $user->email = $email;
+                $cnn->close();
+                return $user;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    /*
+     * ValidateExistingUser
+     * 
+     * param $name string
+     * param $email string
+     * 
+     * return bool
+     * true = no permitir crear nuevo usuario (ya existe)
+     * false = permitir crear nuevo usuario (no existe)
+     */
+    private static function ValidateExistingUser($name,$email) {
         $cnn = new MySQL();
-        $sql = "INSERT INTO users (name,firstname,lastname,email,password) ";
-        $sql.= sprintf("values ('%s','%s','%s','%s','%s')",$name,$firstname,$lastname,$email,$passwd);
+        $sql = sprintf("SELECT id FROM users WHERE name='%s' OR email='%s'",$name,$email);
         $rst = $cnn->query($sql);
         $cnn->close();
-        
+
         if (!$rst) {
             die('Error en la consulta');
+        } elseif ($rst->num_rows > 0) {
+            return true;
         } else {
-            $user = new User();
-            $user->id = $cnn->insert_id;
-            $user->name = $name;
-            $user->firstname = $firstname;
-            $user->lastname = $lastname;
-            $user->email = $email;
-            return $user;
+            return false;
         }
     }
 }
