@@ -22,3 +22,13 @@ insert into users (name,firstname,lastname,email,password) values
 insert into users (name,firstname,lastname,email,password) values
 ('alfonso','Alfonso','Felix','afelix@cetis108.edu.mx',sha('123'));
 
+-- validacion de existencia de usuario
+set @name = 'bidkar';
+set @email = 'bidkar@cetis108.edu.mx'
+select
+    *
+from users
+where
+    name = @name or
+    email = @email;
+

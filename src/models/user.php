@@ -41,7 +41,7 @@ class User {
         }
     }
 
-    public static function all() {
+    public static function All() {
         $cnn = new MySQL();
         $sql = "SELECT id,name,firstname,lastname,email FROM users";
         $rst = $cnn->query($sql);
@@ -63,6 +63,26 @@ class User {
             return $users;
         } else {
             return false;
+        }
+    }
+
+    public static function NewOne($name,$firstname,$lastname,$email,$passwd) {
+        $cnn = new MySQL();
+        $sql = "INSERT INTO users (name,firstname,lastname,email,password) ";
+        $sql.= sprintf("values ('%s','%s','%s','%s','%s')",$name,$firstname,$lastname,$email,$passwd);
+        $rst = $cnn->query($sql);
+        $cnn->close();
+        
+        if (!$rst) {
+            die('Error en la consulta');
+        } else {
+            $user = new User();
+            $user->id = $cnn->insert_id;
+            $user->name = $name;
+            $user->firstname = $firstname;
+            $user->lastname = $lastname;
+            $user->email = $email;
+            return $user;
         }
     }
 }
