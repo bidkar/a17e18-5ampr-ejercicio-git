@@ -91,16 +91,6 @@ class User {
         }
     }
 
-    /*
-     * ValidateExistingUser
-     * 
-     * param $name string
-     * param $email string
-     * 
-     * return bool
-     * true = no permitir crear nuevo usuario (ya existe)
-     * false = permitir crear nuevo usuario (no existe)
-     */
     private static function ValidateExistingUser($name,$email) {
         $cnn = new MySQL();
         $sql = sprintf("SELECT id FROM users WHERE name='%s' OR email='%s'",$name,$email);
@@ -111,6 +101,28 @@ class User {
             die('Error en la consulta');
         } elseif ($rst->num_rows > 0) {
             return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function Login($name, $passwd) {
+        $cnn = new MySQL();
+        $sql = sprintf("SELECT id,firstname,lastname,email FROM users WHERE name='%s' AND password='%s'",$name,$passwd);
+        $rst = $cnn->query($sql);
+        $cnn->close();
+
+        if (!$rst) {
+            die('Error en la consulta');
+        } elseif ($rst->num_rows == 1) {
+            $u = $rst->fetch_assoc();
+            $user = new User();
+            $user->id = $u['id'];
+            $user->name = $name;
+            $user->firstname = $u['firstname'];
+            $user->lastname = $u['lastname'];
+            $user->email = $u['email'];
+            return $user;
         } else {
             return false;
         }
