@@ -2,6 +2,18 @@
 require_once '../src/app/db/mysql.php';
 require_once '../src/models/user.php';
 use Models\User;
+
+if (isset($_POST['usuario']) && isset($_POST['passwd'])) {
+    $username = $_POST['usuario'];
+    $passwd  = $_POST['passwd'];
+    $usuario = User::Login($username, $passwd);
+    $mensaje = '';
+    if (!$usuario) {
+        $mensaje = "Usuario o contraseña incorrectos";
+    } else {
+        $mensaje = "El usuario $username puede iniciar sesión";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -13,6 +25,12 @@ use Models\User;
     <title>Home page</title>
 </head>
 <body>
+    <?php
+    // if (isset($mensaje)) {
+    //     echo $mensaje;
+    // }
+    echo isset($mensaje) ? $mensaje : '';
+    ?>
     <div style="width:300px;">
         <form action="#" id="loginform" method="post">
             <fieldset>

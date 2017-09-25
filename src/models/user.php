@@ -108,7 +108,7 @@ class User {
 
     public static function Login($name, $passwd) {
         $cnn = new MySQL();
-        $sql = sprintf("SELECT id,firstname,lastname,email FROM users WHERE name='%s' AND password='%s'",$name,$passwd);
+        $sql = sprintf("SELECT id,firstname,lastname,email FROM users WHERE name='%s' AND password=sha('%s')",$name,$passwd);
         $rst = $cnn->query($sql);
         $cnn->close();
 
