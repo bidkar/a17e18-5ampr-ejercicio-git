@@ -1,5 +1,5 @@
 <?php
-namespace Models;
+namespace Src\Models;
 use App\DB\MySQL;
 
 class User {
