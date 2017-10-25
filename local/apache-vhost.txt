@@ -1,0 +1,22 @@
+Paso número 1 - DNS Local
+  agregar al archivo c:\windows\system32\drivers\etc\hosts
+    127.0.0.1 biblioteca.dev
+
+Paso número 2 - Configuración global de apache httpd
+  verificar y/o descomentar en el archivo
+  c:\xampp\apache\conf\httpd.conf la linea que incluye a
+    c:\xampp\apache\conf\extra\httpd-vhosts.conf
+
+Paso número 3 - Configuración de los virtual host
+  agregar configuracion de virtual host al archivo
+    c:\xampp\apache\conf\extra\httpd-vhosts.conf
+
+<VirtualHost 127.0.0.1:80>
+  ServerAdmin bidkar@cetis108.edu.mx
+  ServerName biblioteca.dev
+  ServerAlias www.biblioteca.dev
+  DocumentRoot "/Applications/XAMPP/xamppfiles/htdocs/a17e18-5ampr-ejercicio-git/public"
+  ErrorLog "logs/biblioteca.dev-error.log"
+  CustomLog "logs/biblioteca.dev-access.log" common
+</VirtualHost>
+
