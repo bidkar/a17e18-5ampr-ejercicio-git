@@ -7,11 +7,24 @@ class Router {
     private $param = '';
 
     // /controller/action/params
-    public static function get($url) {
+    // inicial = / || /home || /home/index
+    // login = /login
+    public static function get($url) { // $url = 'home'
         $x = preg_split('/[\/]/', $url);
-        $controller = $x[0];
-        $action = $x[1];
-        $param = $x[2];
+        switch (count($x)) {
+            case 3:
+                $this->controller = $x[0];
+                $this->action = $x[1];
+                $this->param = $x[2];
+                break;
+            case 2:
+                $this->controller = $x[0];
+                $this->action = $x[1];
+                break;
+            case 1:
+                $this->controller = $x[0];
+                break;
+        }
         var_dump($x);
         return 0;
     }
