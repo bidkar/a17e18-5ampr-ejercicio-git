@@ -31,6 +31,42 @@ $ cd /c/xampp/htdocs
 $ git clone https://github.com/bidkar/a17e18-5ampr-ejercicio-git.git
 $ mv a17e18-5ampr-ejercicio-git biblioteca-cetis108
 ```
+### Instalacion de la base de datos
+Utilizando el archivo [bibliotecam.sql](local/bilbiotecam.sql) ejecuta las sentencias DDL y DML con una [conexión abierta en MySQL](http://localhost/phpmyadmin)
 
 ## Pruebas
 Pasos para probar que el proyecto es funcional.
+
+# Formato de entrega
+## Archivo readme en Markdown
+- Titulo
+- Subitulo
+- Imágenes
+- Hypervinculos
+- Negrita
+- Codigo
+- Listas ordenadas
+- Listas desordenadas
+- Citas
+
+## Pasos para la instalacion, configuracion y uso del proyecto
+
+### Requerimientos (lista)
+- Servidor web
+- Servidor de aplicaciones
+- Servidor de Base de datos
+- \* Recomendaciones
+- Instalacion de XAMPP
+
+### Instalacion del proyecto
+- Descarga del codigo fuente (c:\xampp\htdocs)
+> \* Cambiar nombre de directorio
+Creacion de la base de datos
+
+### Configuracion del poyecto
+- DNS local (biblioteca.dev)
+- Apache global (httpd.conf)
+- Apache vhosts (httpd-vhosts.conf)
+
+### Uso del proyecto
+Navegador (http://biblioteca.dev)
